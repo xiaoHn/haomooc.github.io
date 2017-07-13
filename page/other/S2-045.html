@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>str-045</title>
+<style>
+			body{
+				width: 100%;
+				height: 100%;
+				background-color:#B2DFEE;
+			}
+			*{
+				margin: 0 auto;
+				padding: 0;
+			}
+		</style>
+</head>
+
+<body>
+
+<div>
+<center><br/><br/>
+
+<font style="FONT-FAMILY: Comic Sans MS;">
+<strong><h2>Strust2再发新漏洞之S2-045<br/></h2></strong></font></center><br/><br/>
+<div>
+<br/><br/>
+<p>&nbsp;&nbsp;前沿：大半夜正在看黑阔们唠嗑，突然某黑阔发来一个链接-S2-045漏洞，厉害了，黑阔们也是厉害了，又来一发strust2漏洞，走吧，看看去</p><br/>
+<h3><p>&nbsp;&nbsp;漏洞编号：CVE-2017-5638</p><br/>
+<p>&nbsp;&nbsp;影响版本：Struts 2.3.5 - Struts 2.3.31, Struts 2.5 - Struts 2.5.10</p><br/>
+<p>&nbsp;&nbsp;影响类型：基于Jakarta的文件上传Multipart解析器，可触发漏洞</p><br/>
+<p>&nbsp;&nbsp;修复方案：Upgrade to Struts 2.3.32 or Struts 2.5.10.1</p><br/>
+<p>&nbsp;&nbsp;漏洞详情：在上传文件时，可能执行具有恶意Content-Type值的远程攻击。 如果Content-Type值无效，则抛出异常，然后用于向用户显示错误消息。</p><br/>
+</h3>
+<h3>
+脚本分享：<a  style="text-decoration:none;" href="./045poc.html">POC</a><br/>
+必看文章：<a  style="text-decoration:none;" href="./upload.html">文件上传的整个流程</a><br/>
+英文看点：<a  style="text-decoration:none;" href="./english.html">S2-045 - Apache Struts 2 Documentation - Apache Software Foundation</a><br/>
+国内看点：<a  style="text-decoration:none;" href="./warning.html">警惕ApacheStruts2最新漏洞</a>
+</h3>
+</div><br/><br/><br/><br/><br/><br/></div>
+</font>
+
+
+
+
+
+
+<center>
+<h4>记：2017-3-06 0:50&nbsp;&nbsp;<br/><br/>
+<input type="button" name="button1" id="button1" value="返回上一页" onclick="history.go(-1)"> <br/><br/>
+<script type="text/javascript">document.write(['<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=',encodeURIComponent(location.href),'&title=',encodeURIComponent(document.title),'" target="_blank"  style="text-decoration:none;"  title="分享到QQ空间">分享到QQ空间<\/a>'].join(''));</script>
+</center>
+</div>
+<br/><br/>
+</body>
+</html>

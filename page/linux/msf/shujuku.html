@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>msf链接数据库</title>
+<style>
+			body{
+				width: 100%;
+				height: 100%;
+				background-color:#B2DFEE;
+			}
+			*{
+				margin: 0 auto;
+				padding: 0;
+			}
+		</style>
+		</head>
+<body>
+<div>
+
+
+<br/><br/>
+<!--文章title-->
+<center>
+<font style="FONT-FAMILY: Comic Sans MS;"><strong><h2>msf链接postgresql数据库</h2></strong></font>
+</center>
+<!--主体内容-->
+<div><br/><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;操作环境：Unix/Linux系列</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;安装postgresql数据库：apt-get install postgresql</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;启动服务：service postgresql start</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;修改postgresql密码为Sql@2017：{{{</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sudo -u postgres psql postgres</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;root@kali:~# sudo -u postgres psql postgres</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;postgres=# alter user postgres with password 'Sql@2017';</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;修改成功会看到：ALTER ROLE</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;}}}</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;启动msf：msfconsole</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msf > db_status</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[*] postgresql connected to postgres</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msf > db_connect </p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{{</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[*]    Usage: </p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[*] Examples:</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[*]        db_connect user@metasploit3</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[*]        db_connect user:pass@192.168.0.2/metasploit3</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[*]        db_connect user:pass@192.168.0.2:1500/metasploit3</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}}}</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msf > db_connect postgres:Sql@2017@127.0.0.1:5432/postgres</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;总结：整个过程就几句：</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;apt-get install postgresql && service postgresql start</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;sudo -u postgres psql postgres  </p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;alter user postgres with password 'Sql@2017';</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;msfconsole</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;db_connect postgres:Sql@2017@127.0.0.1:5432/postgres</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;</p><br/>
+</div><br/><br/>
+
+
+
+<!--其他功能-->
+<center>
+
+<input type="button" name="button1" id="button1" value="返回上一页" onclick="history.go(-1)"> <br/><br/>
+<script type="text/javascript">document.write(['<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=',encodeURIComponent(location.href),'&title=',encodeURIComponent(document.title),'" target="_blank"  style="text-decoration:none;"  title="分享到QQ空间">分享到QQ空间<\/a>'].join(''));</script>
+</center>
+</div>
+<br/><br/>
+
+</body>
+</html>

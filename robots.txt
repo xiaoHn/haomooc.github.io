@@ -1,0 +1,6 @@
+# robots.txt generated at http://tool.chinaz.com/robots/ 
+User-agent: *
+Disallow: /common/
+Disallow: /page/blog.html
+Disallow: /page/blog/
+Sitemap: http://ahcert.org.cn/sitemap.xml

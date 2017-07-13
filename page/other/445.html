@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>屏蔽445端口</title>
+<style>
+			body{
+				width: 100%;
+				height: 100%;
+				background-color:#B2DFEE;
+			}
+			*{
+				margin: 0 auto;
+				padding: 0;
+			}
+		</style>
+		</head>
+<body>
+<div>
+
+
+<br/><br/>
+<!--文章title-->
+<center>
+<font style="FONT-FAMILY: Comic Sans MS;"><strong><h2>屏蔽Smb端口</h2></strong></font>
+</center>
+<!--主体内容-->
+<div><br/><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;1、仅仅屏蔽445端口代码：新建文本文档，把代码复制进去，重命名为445.bat，直接双击运行</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;
+<textarea rows=100 cols=150> 
+@echo off
+CLS
+ECHO.
+ECHO ================================
+ECHO 开启屏蔽端口，回车进行下一步
+ECHO ================================
+:init
+setlocal DisableDelayedExpansion
+set "batchPath=%~0"
+for %%k in (%0) do set batchName=%%~nk
+set "vbsGetPrivileges=%temp%\OEgetPriv_%batchName%.vbs"
+setlocal EnableDelayedExpansion
+:checkPrivileges
+NET FILE 1>NUL 2>NUL
+if '%errorlevel%' == '0' ( goto gotPrivileges ) else ( goto getPrivileges )
+:getPrivileges
+if '%1'=='ELEV' (echo ELEV & shift /1 & goto gotPrivileges)
+ECHO.
+ECHO ********************************
+ECHO 请求 UAC 权限批准……
+ECHO ********************************
+ECHO Set UAC = CreateObject^("Shell.Application"^) > "%vbsGetPrivileges%"
+ECHO args = "ELEV " >> "%vbsGetPrivileges%"
+ECHO For Each strArg in WScript.Arguments >> "%vbsGetPrivileges%"
+ECHO args = args ^& strArg ^& " "  >> "%vbsGetPrivileges%"
+ECHO Next >> "%vbsGetPrivileges%"
+ECHO UAC.ShellExecute "!batchPath!", args, "", "runas", 1 >> "%vbsGetPrivileges%"
+"%SystemRoot%\System32\WScript.exe" "%vbsGetPrivileges%" %*
+exit /B
+:gotPrivileges
+setlocal & pushd .
+cd /d %~dp0
+if '%1'=='ELEV' (del "%vbsGetPrivileges%" 1>nul 2>nul  &  shift /1)
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::     以下为需要运行的批处理文件代码     ::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+rem 本行以下可修改为你需要的bat命令（从上面三行冒号开始到下面都可删改）
+ECHO 欢迎使用使用本软件，继续下一步
+ECHO.
+@echo off
+mode con: cols=85 lines=30
+:南部漂泊
+title  WannaCry勒索病毒安全加固工具  
+color C
+cls
+echo.                   
+echo.                      
+echo -----------------------  WannaCry勒索病毒安全加固工具  --------------------------                                                                          
+echo                          右键管理员-管理员身份运行
+echo       *打1：WIN7系统 加固 
+echo       *打2：WIN10系统 加固
+echo       *打3：WIN2003系统 加固
+echo       *打4：WIN2008系统 加固
+echo       *打5：WIN2012系统 加固   
+echo       *打6：WIN2016系统 加固        
+echo       7: 退出                                                              
+echo              南部漂泊                     
+echo              http://ahcert.org.cn/                                                            
+echo ---------------------------------------------------------------------------------
+echo.
+set start=
+set /p start=    根据您的系统,输入(1 2 3 4 5 6)后按回车键:
+if "%start%"=="1" goto WIN7
+if "%start%"=="2" goto WIN10
+if "%start%"=="3" goto WIN2003
+if "%start%"=="4" goto WIN2008
+if "%start%"=="5" goto WIN2012
+if "%start%"=="6" goto WIN2016
+if "%start%"=="7" goto quit
+goto 南部漂泊
+
+:WIN7
+net stop server /Y 
+sc config lanmanserver start= disabled
+netsh advfirewall set currentprofile state on 
+netsh advfirewall firewall add rule name="DenyEquationTCP" dir=in action=block localport=445 remoteip=any protocol=tcp 
+netsh advfirewall firewall add rule name="DenyEquationUDP" dir=in action=block localport=445 remoteip=any protocol=udp 
+echo ---------------------------------------------------------------------------------
+echo    *  Windows 7系统加固命令执行完毕！
+echo .
+start http://ahcert.org.cn/ 
+pause
+goto 南部漂泊
+:WIN10
+net stop server 
+sc config lanmanserver start= disabled
+netsh firewall set opmode enable 
+netsh advfirewall firewall add rule name="DenyEquationTCP" dir=in action=block localport=445 remoteip=any protocol=tcp 
+netsh advfirewall firewall add rule name="DenyEquationUDP" dir=in action=block localport=445 remoteip=any protocol=udp 
+echo ---------------------------------------------------------------------------------
+echo    *  Windows 10系统加固命令执行完毕！
+echo .
+start http://ahcert.org.cn/ 
+pause
+goto NSFOCUSXA
+:WIN2003
+net stop server > nul
+net start sharedaccess > nul
+sc config lanmanserver start= disabled
+netsh firewall add portopening protocol = ALL port = 445 name = DenyEquationTCP mode = DISABLE scope = ALL profile = ALL > nul
+netsh firewall add portopening protocol = ALL port = 4445 name = DenyEquationTCP mode = ABLE scope = ALL profile = ALL > nul
+echo ---------------------------------------------------------------------------------
+echo    *  Windows Server 2003系统加固命令执行完毕！
+echo .
+start http://ahcert.org.cn/ 
+pause
+goto NSFOCUSXA
+
+:WIN2008
+net stop server /Y 
+sc config lanmanserver start= disabled
+netsh advfirewall set currentprofile state on 
+netsh advfirewall firewall add rule name="DenyEquationTCP" dir=in action=block localport=445 remoteip=any protocol=tcp 
+netsh advfirewall firewall add rule name="DenyEquationUDP" dir=in action=block localport=445 remoteip=any protocol=udp 
+echo ---------------------------------------------------------------------------------
+echo    *  Windows Server 2008系统加固命令执行完毕！
+echo .
+start http://ahcert.org.cn/ 
+pause
+goto NSFOCUSXA
+
+:WIN2012
+net stop server > nul
+net start MpsSvc > nul
+sc config lanmanserver start= disabled
+netsh advfirewall firewall add rule name="DenyEquationTCP" dir=in action=block localport=445 remoteip=any protocol=tcp > nul
+netsh advfirewall firewall add rule name="DenyEquationUDP" dir=in action=block localport=445 remoteip=any protocol=udp > nul
+echo ---------------------------------------------------------------------------------
+echo    *  Windows Server 2012系统加固命令执行完毕！
+echo .
+start http://ahcert.org.cn/ 
+pause
+goto NSFOCUSXA
+:WIN2016
+net stop server > nul
+sc config lanmanserver start= disabled
+netsh advfirewall firewall add rule name="DenyEquationTCP" dir=in action=block localport=445 remoteip=any protocol=tcp > nul
+netsh advfirewall firewall add rule name="DenyEquationUDP" dir=in action=block localport=445 remoteip=any protocol=udp > nul
+echo ---------------------------------------------------------------------------------
+echo    *  Windows Server 2016系统加固命令执行完毕！
+echo .
+start http://ahcert.org.cn/ 
+pause
+goto NSFOCUSXA
+</textarea>
+</p><br/><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;2、屏蔽135 137 138 139 445端口，通用版本</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;
+<textarea rows=60 cols=150> 
+@echo off
+CLS
+ECHO.
+ECHO ====================================
+ECHO 准备屏蔽端口，一直回车进行下一步即可
+ECHO ====================================
+:init
+setlocal DisableDelayedExpansion
+set "batchPath=%~0"
+for %%k in (%0) do set batchName=%%~nk
+set "vbsGetPrivileges=%temp%\OEgetPriv_%batchName%.vbs"
+setlocal EnableDelayedExpansion
+:checkPrivileges
+NET FILE 1>NUL 2>NUL
+if '%errorlevel%' == '0' ( goto gotPrivileges ) else ( goto getPrivileges )
+:getPrivileges
+if '%1'=='ELEV' (echo ELEV & shift /1 & goto gotPrivileges)
+ECHO.
+ECHO ********************************
+ECHO 请求 UAC 权限批准……
+ECHO ********************************
+ECHO Set UAC = CreateObject^("Shell.Application"^) > "%vbsGetPrivileges%"
+ECHO args = "ELEV " >> "%vbsGetPrivileges%"
+ECHO For Each strArg in WScript.Arguments >> "%vbsGetPrivileges%"
+ECHO args = args ^& strArg ^& " "  >> "%vbsGetPrivileges%"
+ECHO Next >> "%vbsGetPrivileges%"
+ECHO UAC.ShellExecute "!batchPath!", args, "", "runas", 1 >> "%vbsGetPrivileges%"
+"%SystemRoot%\System32\WScript.exe" "%vbsGetPrivileges%" %*
+exit /B
+:gotPrivileges
+setlocal & pushd .
+cd /d %~dp0
+if '%1'=='ELEV' (del "%vbsGetPrivileges%" 1>nul 2>nul  &  shift /1)
+ECHO 继续下一步
+ECHO.
+%1 mshta vbscript:CreateObject("Shell.Application").ShellExecute("cmd.exe","/c %~s0 ::","","runas",1)(window.close)&&exit
+echo 正在启动防火墙 请稍候… 
+sc config SharedAccess start= auto > nul 
+net start SharedAccess > nul 
+echo 防火墙已经成功启动 
+echo. 
+echo. 
+echo 正在关闭常见的危险端口 请稍候… 
+echo. 
+echo. 
+echo 正在关闭135端口 请稍候… 
+netsh advfirewall firewall add rule name = "Disable port 135 - TCP" dir = in action = block protocol = TCP localport = 135
+echo. 
+netsh advfirewall firewall add rule name = "Disable port 135 - UDP" dir = in action = block protocol = UDP localport = 135
+echo. 
+echo 正在关闭137端口 请稍候… 
+netsh advfirewall firewall add rule name = "Disable port 137 - TCP" dir = in action = block protocol = TCP localport = 137
+echo. 
+netsh advfirewall firewall add rule name = "Disable port 137 - UDP" dir = in action = block protocol = UDP localport = 137
+echo. 
+echo 正在关闭138端口 请稍候… 
+netsh advfirewall firewall add rule name = "Disable port 138 - TCP" dir = in action = block protocol = TCP localport = 138
+echo. 
+netsh advfirewall firewall add rule name = "Disable port 138 - UDP" dir = in action = block protocol = UDP localport = 138
+echo. 
+echo 正在关闭139端口 请稍候… 
+netsh advfirewall firewall add rule name = "Disable port 139 - TCP" dir = in action = block protocol = TCP localport = 139
+echo. 
+netsh advfirewall firewall add rule name = "Disable port 139 - UDP" dir = in action = block protocol = UDP localport = 139
+echo. 
+echo 正在关闭445端口 请稍候… 
+netsh advfirewall firewall add rule name = "Disable port 445 - TCP" dir = in action = block protocol = TCP localport = 445
+echo. 
+netsh advfirewall firewall add rule name = "Disable port 445 - UDP" dir = in action = block protocol = UDP localport = 445
+echo.
+start http://ahcert.org.cn/
+echo 按任意键退出 
+pause>nul
+</textarea>
+</p><br/>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;以上为两个代码，第一个仅仅屏蔽445端口，第二个屏蔽445 139 138 137 135端口的</p><br/>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;使用方法：新建文本文档(test.txt)，把代码复制进去，修改txt文件为test.bat，然后双击运行</p><br/>
+</div><br/><br/>
+
+
+
+<!--其他功能-->
+<center>
+
+<input type="button" name="button1" id="button1" value="返回上一页" onclick="history.go(-1)"> <br/><br/>
+<script type="text/javascript">document.write(['<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=',encodeURIComponent(location.href),'&title=',encodeURIComponent(document.title),'" target="_blank"  style="text-decoration:none;"  title="分享到QQ空间">分享到QQ空间<\/a>'].join(''));</script>
+</center>
+</div>
+<br/><br/>
+
+</body>
+</html>
