@@ -1,6 +1,4 @@
-# robots.txt generated at http://tool.chinaz.com/robots/ 
+# robots.txt 
 User-agent: *
-Disallow: /common/
-Disallow: /page/blog.html
 Disallow: /page/blog/
-Sitemap: http://laimooc.cn/sitemap.xml
+Sitemap: https://www.laimooc.cn/sitemap.xml
