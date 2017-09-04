@@ -1,48 +1,14 @@
-<html>
-<head>
 <meta charset="utf-8">
-<meta http-equiv="content-language" content="zh-cn">
-<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
-<center>
 <title>404</title>
-<style>
-			body{
-				width: 92%;
-				padding:0 4%;
-			}
-			*{
-				margin: 0 auto;
-				padding: 0;
-			}
-		</style>
-</head>
-<body bgcolor="#050505">
-<form name=loading><br/>
-	<FONT face=Arial color=#BA55D3 size=5>Oh ,No<br/>404 no found</FONT><br/>
-<br/>
-<INPUT style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; COLOR: #0066ff; BORDER-BOTTOM: medium none; TEXT-ALIGN: center" size=47 name=percent>
-<br/>
-<INPUT style="PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FONT-WEIGHT: bolder; PADDING-BOTTOM: 0px; COLOR: #104E8B; BORDER-TOP-style: none; PADDING-TOP: 0px; FONT-FAMILY: Arial; BORDER-RIGHT-style: none; BORDER-LEFT-style: none; BACKGROUND-COLOR: white; BORDER-BOTTOM-style: none"
-size=46 name=chart>
-<script language="javascript">
-var bar=0
-var line="||"
-var amount="||"
-count()
-function count(){
-    bar=bar+2
-    amount =amount + line
-    document.loading.chart.value=amount
-    document.loading.percent.value=bar+"%"
-    if (bar<99){
-        setTimeout("count()",100);
-    }else{
-        window.location = "https://www.laimooc.cn/page/other/domain1.html";
-    }
-}
-</script>
-</form>
-<img src="http://www.laimooc.cn/images/404.jpg">
-</body>
-</html>
-
+<center>
+<div class="mt20 box p20">
+	<div class="fl" style="width:50%">
+		<div class="p20 tc">
+			<h1 style="font-size:10em;color:#7c0000;">4 0 4</h1>
+			<p style="font-size:2em;color:#666;">很抱歉，我要访问的页面不存在。</p>
+		</div>
+	</div>
+	<div class="fr" style="width:50%">
+		<meta http-equiv="Refresh" content="1;url=https://www.laimooc.cn/page/other/domain1.html">
+	</div>
+</div>
