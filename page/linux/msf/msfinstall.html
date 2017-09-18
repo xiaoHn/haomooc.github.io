@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>安装metasploit(msf)</title>
+<style>
+			body{
+				width: 92%;
+				background-color:#B2DFEE;
+				padding:0 4%;
+			}
+			*{
+				margin: 0 auto;
+				padding: 0;
+			}
+		</style>
+		</head>
+<body >
+<div>
+
+
+<br/><br/>
+<!--文章title-->
+<center>
+<font style="FONT-FAMILY: Comic Sans MS;"><strong><h2>安装metasploit(msf)</h2></strong></font>
+</center>
+<!--主体内容-->
+<div><br/><br/>
+<p style="text-indent:32px"><h3>安装metasploit</h3></p><br/>
+<p style="text-indent:32px">1】curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall</p><br/>
+<p style="text-indent:32px">2】chmod 755 msfinstall</p><br/>
+<p style="text-indent:32px">3】bash msfinstall</p><br/>
+<p style="text-indent:32px">4】msfconsole 即可启动（我的是ubuntu:成功以后的目录：/opt目录下）</p><br/>
+<p style="text-indent:32px"><h3>安装postgresql数据库</h3></p><br/>
+<p style="text-indent:32px">1】apt-get install postgresql  </p><br/>
+<p style="text-indent:32px">2】su - postgres </p><br/>
+<p style="text-indent:32px">3】psql </p><br/>
+<p style="text-indent:32px">4】\password postgres （这里会提示输入两次密码）</p><br/>
+<p style="text-indent:32px">msf链接数据库</p><br/>
+<p style="text-indent:32px">1】启动msf：msfconsole</p><br/>
+<p style="text-indent:32px">2】查看链接状态：db_status</p><br/>
+<p style="text-indent:32px">3】链接数据库：db_connect postgres:刚才输入的密码@127.0.0.1/要创建的数据库名字 （例如：db_connect postgres:password@127.0.0.1/msfdb ） </p><br/>
+<p style="text-indent:32px">4】查看链接状态：db_status</p><br/>
+<p style="text-indent:32px">5】db_rebuild_cache 建立metasploit的模块缓存</p><br/>
+<p style="text-indent:32px">参考:https://jingyan.baidu.com/article/2c8c281dabacad0008252aa6.html</p><br/>
+<p style="text-indent:32px">完成</p><br/>
+
+</div><br/><br/>
+
+<center>
+<h4 >转载：2017-9-18&nbsp;&nbsp; </h4><br/>
+<input type="button" name="button1" id="button1" value="返回" onclick="history.go(-1)"> OR
+<input type="button" name="button1" id="button1" value="打印" onclick="javascript:window.print()"> <br/><br/>
+<script type="text/javascript">document.write(['<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=',encodeURIComponent(location.href),'&title=',encodeURIComponent(document.title),'" target="_blank"  style="text-decoration:none;"  title="分享到QQ空间">分享到QQ空间<\/a>'].join(''));</script>
+</center>
+</div>
+<br/><br/>
+
+</body>
+</html>
