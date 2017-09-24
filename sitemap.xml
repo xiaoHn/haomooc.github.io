@@ -393,5 +393,11 @@
 	<lastmod>2017-08-27</lastmod>
 	<priority>1.0</priority>
   </url>
+	  
+  <url>
+	<loc>http://www.laimooc.cn/go.html</loc>
+	<lastmod>2017-08-27</lastmod>
+	<priority>1.0</priority>
+  </url>
 	
 </urlset>
