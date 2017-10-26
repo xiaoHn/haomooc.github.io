@@ -402,11 +402,13 @@ $(function(){
 						{"id":"8","name":"安全测试","parentId":"10","url":"./page/st.html","icon":"","order":"1","isHeader":"0","childMenus":""},
 						{"id":"9","name":"代码审计","parentId":"10","url":"./page/sj.html","icon":"","order":"1","isHeader":"0","childMenus":""},
 						{"id":"10","name":"Linux学习","parentId":"10","url":"./page/yw.html","icon":"","order":"1","isHeader":"0","childMenus":""},
-					    {"id":"12","name":"其他方面","parentId":"12","url":"./page/other.html","icon":"","order":"1","isHeader":"0","childMenus":""}
+					    {"id":"12","name":"圈内动态","parentId":"12","url":"./page/other.html","icon":"","order":"1","isHeader":"0","childMenus":""}
 				]},
 				
-				{"id":"1","name":"在关注：","parentId":"0","icon":"&#xe602;","icon":"","order":"1","isHeader":"1","childMenus":[
-					{"id":"4","name":"关注平台","parentId":"1","url":"./page/blog.html","icon":"&#xe602;","order":"1","isHeader":"0","childMenus":""}
+				{"id":"1","name":"在玩耍：","parentId":"0","icon":"&#xe602;","icon":"","order":"1","isHeader":"1","childMenus":[
+					{"id":"4","name":"关注平台","parentId":"1","url":"./page/blog.html","icon":"&#xe602;","order":"1","isHeader":"0","childMenus":""},
+					    {"id":"12","name":"生活杂谈","parentId":"12","url":"./page/life.html","icon":"","order":"1","isHeader":"0","childMenus":""},
+						{"id":"4","name":"好玩Game","parentId":"1","url":"./page/game.html","icon":"&#xe602;","order":"1","isHeader":"0","childMenus":""}
 				]}
 				];
 	initMenu(menu,$(".side-menu"));
