@@ -394,8 +394,9 @@ $(function(){
 				
 				{"id":"1","name":"在写作：","parentId":"0","icon":"","order":"1","isHeader":"1","childMenus":[
 					
-					{"id":"4","name":"过往","parentId":"1","url":"./page/gw.html","icon":"&#xe602;","order":"1","isHeader":"0","childMenus":""},
-					{"id":"5","name":"未来","parentId":"1","url":"./page/wl.html","icon":"&#xe602;","order":"1","isHeader":"0","childMenus":""}
+					{"id":"4","name":"那些过往","parentId":"1","url":"./page/gw.html","icon":"&#xe602;","order":"1","isHeader":"0","childMenus":""},
+					{"id":"5","name":"把握现在","parentId":"1","url":"./page/now.html","icon":"&#xe602;","order":"1","isHeader":"0","childMenus":""},
+					{"id":"5","name":"展望未来","parentId":"1","url":"./page/wl.html","icon":"&#xe602;","order":"1","isHeader":"0","childMenus":""}
 				]},
 	
 				{"id":"6","name":"在路上：","parentId":"0","icon":"","order":"2","isHeader":"1","childMenus":[   
