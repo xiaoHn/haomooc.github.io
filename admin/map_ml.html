@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>后台</title>
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<body>
+<div id='container'></div>
+<div id="tip"></div>
+<script type="text/javascript">
+    navigator.geolocation.getCurrentPosition(function(position) {
+        console.log(position)
+        $.get("http://119.29.159.207/data.php",{ getLng: lng, getLat: lat},function(result){
+            console.log('成功')
+        });
+    },function (err) {
+        console.log('err')
+        console.log(err)
+    });
+
+</script>
+</body>
+</html>
