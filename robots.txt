@@ -1,4 +1,0 @@
-# robots.txt 
-User-agent: *
-Disallow: /page/blog/
-Sitemap: https://www.laimooc.cn/sitemap.xml
