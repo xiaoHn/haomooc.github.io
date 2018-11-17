@@ -1,0 +1,11 @@
+<?php
+if (isset($_GET['a']) and isset($_GET['b'])) {
+  if ($_GET['a'] != $_GET['b']) {
+    if (md5($_GET['a']) == md5($_GET['b'])){
+	    echo "flag is".$flag;      
+	   }else {
+             echo 'Wrong.';
+	}
+  }
+}
+?>
